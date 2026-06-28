@@ -18,10 +18,30 @@ class SentenceInput(BaseModel):
     sentence: str
 
 
-def load_model_and_tokenizer(model_name):
+def resolve_device(device_arg):
+    if device_arg != "auto":
+        return torch.device(device_arg)
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
+
+
+def resolve_dtype(dtype_arg, device):
+    if dtype_arg == "float16":
+        return torch.float16
+    if dtype_arg == "bfloat16":
+        return torch.bfloat16
+    if dtype_arg == "float32":
+        return torch.float32
+    return torch.float16 if device.type == "cuda" else torch.float32
+
+
+def load_model_and_tokenizer(model_name, dtype):
     try:
         model = AutoModelForCausalLM.from_pretrained(
-            model_name, trust_remote_code=True, torch_dtype=torch.float16
+            model_name, trust_remote_code=True, torch_dtype=dtype
         )
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         return model, tokenizer
@@ -80,13 +100,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Start a FastAPI server for perplexity calculation.")
     parser.add_argument("--model", type=str, required=True, help="Name of the language model to use.")
     parser.add_argument("--port", type=int, default=8000, help="Port to run the FastAPI server on.")
+    parser.add_argument("--device", type=str, default="auto", help="auto, cuda, mps, or cpu.")
+    parser.add_argument("--dtype", type=str, default="auto", help="auto, float16, bfloat16, or float32.")
     args = parser.parse_args()
 
-    # Load the model and tokenizer
-    model, tokenizer = load_model_and_tokenizer(args.model)
-
-    if torch.cuda.is_available():
-        model = model.cuda()
+    device = resolve_device(args.device)
+    dtype = resolve_dtype(args.dtype, device)
+    logger.info(f"Loading {args.model} on {device} with dtype={dtype}")
+    model, tokenizer = load_model_and_tokenizer(args.model, dtype)
+    model = model.to(device)
+    model.eval()
 
     # 不使用 workers 参数
     uvicorn.run(app, host="0.0.0.0", port=args.port)

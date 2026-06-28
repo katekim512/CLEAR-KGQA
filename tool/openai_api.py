@@ -10,7 +10,8 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 
 _real_k = os.environ.get("OPENAI_API_KEY", None)
 assert _real_k is not None, "OPENAI_API_KEY is not set."
-_http_client = httpx.Client(proxy="http://127.0.0.1:7890")
+_proxy = os.environ.get("OPENAI_PROXY")
+_http_client = httpx.Client(proxy=_proxy) if _proxy else httpx.Client()
 logger.warning("KBQA_API_IP not set. It is the server of APIs.")
 DEFAULT_CLIENT = openai.OpenAI(api_key=_real_k, http_client=_http_client, timeout=30)
 

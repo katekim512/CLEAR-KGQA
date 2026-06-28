@@ -1,0 +1,18 @@
+Q: what is the government system of malaysia?
+Thought: I need to find the Freebase entity for Malaysia first.
+Action: SearchNodes("Malaysia")
+
+Observation: ['"Malaysia" | Description: Malaysia is a federal constitutional monarchy located in Southeast Asia.']
+
+Thought: The entity is Malaysia. I need the relation for government system or form of government.
+Action: SearchGraphPatterns('SELECT ?e WHERE { ?e ns:type.object.name "Malaysia"@en . }', semantic="government system")
+
+Observation: ['(?e, location.country.form_of_government, "Parliamentary system")']
+
+Thought: The relation is location.country.form_of_government, so I can execute the final SPARQL.
+Action: ExecuteSPARQL('SELECT DISTINCT ?x WHERE { ?e ns:type.object.name "Malaysia"@en . ?e ns:location.country.form_of_government ?x . }')
+
+Observation: ['Constitutional monarchy', 'Democracy', 'Elective monarchy', 'Parliamentary system']
+
+Thought: The answer has been retrieved.
+Action: Done.

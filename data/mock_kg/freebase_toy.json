@@ -1,0 +1,84 @@
+{
+  "entities": [
+    {
+      "id": "m.malaysia",
+      "label": "Malaysia",
+      "aliases": ["malaysia"],
+      "description": "Malaysia is a federal constitutional monarchy located in Southeast Asia."
+    },
+    {
+      "id": "m.malaysia_film",
+      "label": "Malaysia",
+      "aliases": ["malaysia"],
+      "description": "Malaysia is a fictional travel film entry used in the toy KG to create an ambiguous entity-name example."
+    },
+    {
+      "id": "m.parliamentary_system",
+      "label": "Parliamentary system",
+      "aliases": ["parliamentary system"],
+      "description": "A system of democratic governance where the executive derives legitimacy from the legislature."
+    },
+    {
+      "id": "m.constitutional_monarchy",
+      "label": "Constitutional monarchy",
+      "aliases": ["constitutional monarchy"],
+      "description": "A monarchy in which the monarch's powers are limited by a constitution."
+    },
+    {
+      "id": "m.democracy",
+      "label": "Democracy",
+      "aliases": ["democracy"],
+      "description": "A system of government in which power is vested in the people."
+    },
+    {
+      "id": "m.elective_monarchy",
+      "label": "Elective monarchy",
+      "aliases": ["elective monarchy"],
+      "description": "A monarchy in which the monarch is elected."
+    },
+    {
+      "id": "m.kuala_lumpur",
+      "label": "Kuala Lumpur",
+      "aliases": ["kuala lumpur"],
+      "description": "The capital city of Malaysia."
+    },
+    {
+      "id": "m.southeast_asia",
+      "label": "Southeast Asia",
+      "aliases": ["southeast asia"],
+      "description": "A geographic region in Asia."
+    }
+  ],
+  "triples": [
+    {
+      "subject": "m.malaysia",
+      "predicate": "location.country.form_of_government",
+      "object": "m.parliamentary_system"
+    },
+    {
+      "subject": "m.malaysia",
+      "predicate": "location.country.form_of_government",
+      "object": "m.constitutional_monarchy"
+    },
+    {
+      "subject": "m.malaysia",
+      "predicate": "location.country.form_of_government",
+      "object": "m.democracy"
+    },
+    {
+      "subject": "m.malaysia",
+      "predicate": "location.country.form_of_government",
+      "object": "m.elective_monarchy"
+    },
+    {
+      "subject": "m.malaysia",
+      "predicate": "location.country.capital",
+      "object": "m.kuala_lumpur"
+    },
+    {
+      "subject": "m.malaysia",
+      "predicate": "location.location.containedby",
+      "object": "m.southeast_asia"
+    }
+  ]
+}

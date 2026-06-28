@@ -123,6 +123,9 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
+!.env.example
+!.env.*.example
 .venv
 env/
 venv/
@@ -171,3 +174,6 @@ local*
 
 !dataset_processed-v2.0.tar.gz
 !save-clear-kgqa-v1.0.tar.gz
+
+# macOS metadata
+.DS_Store

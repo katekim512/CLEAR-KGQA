@@ -1,0 +1,19 @@
+# Toy KG Graph
+
+```mermaid
+flowchart LR
+  m_malaysia["Malaysia<br/>Malaysia is a federal constitutional monarchy located in S..."]
+  m_malaysia_film["Malaysia<br/>Malaysia is a fictional travel film entry used in the toy ..."]
+  m_parliamentary_system["Parliamentary system"]
+  m_constitutional_monarchy["Constitutional monarchy"]
+  m_democracy["Democracy"]
+  m_elective_monarchy["Elective monarchy"]
+  m_kuala_lumpur["Kuala Lumpur"]
+  m_southeast_asia["Southeast Asia"]
+  m_malaysia -->|"location.country.form_of_government"| m_parliamentary_system
+  m_malaysia -->|"location.country.form_of_government"| m_constitutional_monarchy
+  m_malaysia -->|"location.country.form_of_government"| m_democracy
+  m_malaysia -->|"location.country.form_of_government"| m_elective_monarchy
+  m_malaysia -->|"location.country.capital"| m_kuala_lumpur
+  m_malaysia -->|"location.location.containedby"| m_southeast_asia
+```
